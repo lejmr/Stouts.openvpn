@@ -10,6 +10,9 @@ openvpn_enabled: true
 openvpn_use_external_repo: false
 # Set to 'true' to install openvpn from the upstream repo
 
+# Name of OpenVPN instance (for multiple instances of OpenVPN installed on one server)
+openvpn_instance_name: server
+
 openvpn_etcdir: /etc/openvpn
 # The OpenVPN configuration directory
 
@@ -164,6 +167,7 @@ openvpn_client_conf_template: client.conf.j2
 # }}}
 # Authentication {{{
 # Use PAM authentication
+openvpn_pam_name: openvpn
 openvpn_use_pam: true
 openvpn_use_pam_users: []
 # Only for Debian-based, CentOS requires 'pam_pwdfile' from third party repos.

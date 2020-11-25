@@ -20,6 +20,9 @@
   notify: openvpn save iptables
   when: iptables_rules.stdout.find("forward_reverse") == -1
 
+- debug:
+    var: openvpn_server
+
 - name: Allow NATing outgoing vpn traffic
   iptables:
     table: nat
@@ -34,7 +37,7 @@
     out_interface: "{{ openvpn_out_interface | default(omit, true) }}"
     jump: SNAT
     to_source: "{{ openvpn_nat_address }}"
-    comment: vpn_masquerade
+    comment: "vpn_masquerade_{{ openvpn_instance_name }}"
   loop: "{{ openvpn_nat_ranges }}"
-  when: iptables_nat_rules.stdout.find("vpn_masquerade") == -1
+  when: iptables_nat_rules.stdout.find("vpn_masquerade_{{ openvpn_instance_name }}") == -1
   notify: openvpn save iptables
